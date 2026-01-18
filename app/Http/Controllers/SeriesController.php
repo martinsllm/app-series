@@ -14,6 +14,6 @@ class SeriesController extends Controller
             'Supernatural'
         ];
 
-        return view('series', compact('series'));
+        return view('series.index', compact('series'));
     }
 }
