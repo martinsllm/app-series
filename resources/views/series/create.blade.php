@@ -1,5 +1,5 @@
 <x-layout title="Nova Série">
-    <form action="/series" method="POST" class="max-w-md space-y-4">
+    <form action="/series/insert" method="POST" class="max-w-md space-y-4">
         @csrf
         <div>
             <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nome</label>

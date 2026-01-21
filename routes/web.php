@@ -9,3 +9,4 @@ Route::get('/', function () {
 
 Route::get('/series', [SeriesController::class, 'index'])->name('series.index');
 Route::get('/series/create', [SeriesController::class, 'create'])->name('series.create');
+Route::post('/series/insert', [SeriesController::class, 'store'])->name('series.store');

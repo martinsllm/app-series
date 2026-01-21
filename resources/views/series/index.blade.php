@@ -5,7 +5,7 @@
     
     <ul class="space-y-2">
         @foreach($series as $serie)
-            <li class="p-4 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white">{{ $serie }}</li>
+            <li class="p-4 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white">{{ $serie->name }}</li>
         @endforeach
     </ul>
 </x-layout>
