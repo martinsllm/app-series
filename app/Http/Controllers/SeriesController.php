@@ -11,7 +11,10 @@ class SeriesController extends Controller
     {
         $series = Series::all();
 
-        return view('series.index', compact('series'));
+        $message = $request->session()->get('message');
+
+        return view('series.index', compact('series'))
+            ->with('message', $message);
     }
 
     public function create()
@@ -27,6 +30,8 @@ class SeriesController extends Controller
 
         Series::create($serie);
 
+        $request->session()->flash('message', "Série '{$serie['name']}' criada com sucesso!");
+
         return redirect()->route('series.index');
     }
 
@@ -36,6 +41,8 @@ class SeriesController extends Controller
         if ($serie) {
             $serie->delete();
         }
+
+        $request->session()->flash('message', "Série '{$serie->name}' removida com sucesso!");
 
         return redirect()->route('series.index');
     }
