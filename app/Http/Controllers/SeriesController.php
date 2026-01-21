@@ -28,6 +28,15 @@ class SeriesController extends Controller
         Series::create($serie);
 
         return redirect()->route('series.index');
+    }
 
+    public function destroy(Request $request)
+    {
+        $serie = Series::find($request->series);
+        if ($serie) {
+            $serie->delete();
+        }
+
+        return redirect()->route('series.index');
     }
 }
