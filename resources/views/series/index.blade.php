@@ -15,6 +15,8 @@
                 {{ $serie->name }}
 
                 <div class="flex gap-2">
+                    <a href="{{ route('series.edit', $serie->id) }}" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-1 px-2 rounded">E</a>
+                    
                     <form action="{{ route('series.destroy', $serie->id) }}" method="POST">
                         @csrf
                         @method('DELETE')

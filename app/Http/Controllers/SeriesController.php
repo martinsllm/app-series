@@ -30,9 +30,8 @@ class SeriesController extends Controller
 
         Series::create($serie);
 
-        $request->session()->flash('message', "Série '{$serie['name']}' criada com sucesso!");
-
-        return redirect()->route('series.index');
+        return redirect()->route('series.index')
+            ->with('message', "Série '{$serie['name']}' criada com sucesso!");
     }
 
     public function destroy(Request $request)
@@ -42,8 +41,27 @@ class SeriesController extends Controller
             $serie->delete();
         }
 
-        $request->session()->flash('message', "Série '{$serie->name}' removida com sucesso!");
+        return redirect()->route('series.index')
+            ->with('message', "Série '{$serie->name}' removida com sucesso!");
+    }
 
-        return redirect()->route('series.index');
+    public function edit(Request $request, $id)
+    {
+        $serie = Series::findOrFail($id);
+        return view('series.edit', compact('serie'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $serie = Series::findOrFail($id);
+
+        $data = $request->validate([
+            'name' => 'required|string|max:128'
+        ]);
+
+        $serie->update($data);
+
+        return redirect()->route('series.index')
+            ->with('message', "Série '{$data['name']}' atualizada com sucesso!");
     }
 }
