@@ -14,7 +14,7 @@ class SeriesController extends Controller
         $message = $request->session()->get('message');
 
         return view('series.index', compact('series'))
-            ->with('message', $message);
+            ->withMessage($message);
     }
 
     public function create()
@@ -25,13 +25,13 @@ class SeriesController extends Controller
     public function store(Request $request)
     {
         $serie = $request->validate([
-            'name' => 'required|string|max:128'
+            'name' => 'required|string|min:3|max:128'
         ]);
 
         Series::create($serie);
 
         return redirect()->route('series.index')
-            ->with('message', "Série '{$serie['name']}' criada com sucesso!");
+            ->withMessage("Série '{$serie['name']}' criada com sucesso!");
     }
 
     public function destroy(Request $request)
@@ -42,7 +42,7 @@ class SeriesController extends Controller
         }
 
         return redirect()->route('series.index')
-            ->with('message', "Série '{$serie->name}' removida com sucesso!");
+            ->withMessage("Série '{$serie->name}' removida com sucesso!");
     }
 
     public function edit(Request $request, $id)
@@ -56,12 +56,12 @@ class SeriesController extends Controller
         $serie = Series::findOrFail($id);
 
         $data = $request->validate([
-            'name' => 'required|string|max:128'
+            'name' => 'required|string|min:3|max:128'
         ]);
 
         $serie->update($data);
 
         return redirect()->route('series.index')
-            ->with('message', "Série '{$data['name']}' atualizada com sucesso!");
+            ->withMessage("Série '{$data['name']}' atualizada com sucesso!");
     }
 }
