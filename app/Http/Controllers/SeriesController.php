@@ -41,7 +41,7 @@ class SeriesController extends Controller
 
         $episodes = [];
         foreach ($series->seasons as $season) {
-            for ($i = 1; $i <= $request->episodesPerSeason; $i++) {
+            for ($i = 1; $i <= $request->episodesForSeason; $i++) {
                 $episodes[] = [
                     'season_id' => $season->id,
                     'number' => $i
