@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('episodes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedTinyInteger('episode_number');
+            $table->unsignedTinyInteger('number');
             $table->foreignId('season_id')->constrained()->onDelete('cascade');
         });
     }

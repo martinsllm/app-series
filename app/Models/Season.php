@@ -10,6 +10,7 @@ use App\Models\Series;
 class Season extends Model
 {
     use HasFactory;
+    protected $fillable = ['number'];
 
     public function episodes()
     {
