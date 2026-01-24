@@ -42,7 +42,7 @@ class SeriesController extends Controller
 
     public function destroy(Request $request)
     {
-        $serie = $this->seriesRepository->find($request->id);
+        $serie = $this->seriesRepository->find($request->series);
         if ($serie) {
             $serie->delete();
         }
