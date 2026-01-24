@@ -34,5 +34,6 @@
             </div>
         </div>
         <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">Salvar</button>
+        <a href="{{ route('series.index') }}" class="ml-2 text-gray-600 hover:text-gray-800">Cancelar</a>
     </form>
 </x-layout>
