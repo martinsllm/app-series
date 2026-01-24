@@ -7,13 +7,19 @@ use App\Models\Series;
 use App\Models\Season;
 use App\Models\Episode;
 use App\Http\Requests\SeriesFormRequest;
+use App\Repositories\SeriesRepository;
 use Illuminate\Support\Facades\DB;
 
 class SeriesController extends Controller
 {
+    public function __construct(private SeriesRepository $seriesRepository)
+    {
+        $this->seriesRepository = $seriesRepository;
+    }
+
     public function index(Request $request)
     {
-        $series = Series::all();
+        $series = $this->seriesRepository->all();
 
         $message = $request->session()->get('message');
 
@@ -28,33 +34,7 @@ class SeriesController extends Controller
 
     public function store(SeriesFormRequest $request)
     {
-        $series = DB::transaction(function () use ($request) {
-            $series = Series::create($request->all());
-
-            $seasons = [];
-            for($i = 1; $i <= $request->seasonsQty; $i++) {
-                $seasons[] = [
-                    'series_id' => $series->id,
-                    'number' => $i
-                ];
-            }
-
-            Season::insert($seasons);
-
-            $episodes = [];
-            foreach ($series->seasons as $season) {
-                for ($i = 1; $i <= $request->episodesForSeason; $i++) {
-                    $episodes[] = [
-                        'season_id' => $season->id,
-                        'number' => $i
-                    ];
-                }
-            }
-
-            Episode::insert($episodes);
-
-            return $series;
-        }, 5);
+        $series = $this->seriesRepository->add($request->all());
         
         return redirect()->route('series.index')
             ->withMessage("Série '{$series->name}' criada com sucesso!");
@@ -62,7 +42,7 @@ class SeriesController extends Controller
 
     public function destroy(Request $request)
     {
-        $serie = Series::find($request->series);
+        $serie = $this->seriesRepository->find($request->id);
         if ($serie) {
             $serie->delete();
         }
@@ -73,15 +53,15 @@ class SeriesController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $serie = Series::findOrFail($id);
+        $serie = $this->seriesRepository->find($id);
         return view('series.edit', compact('serie'));
     }
 
     public function update(SeriesFormRequest $request, $id)
     {
-        $serie = Series::findOrFail($id);
+        $serie = $this->seriesRepository->find($id);
 
-        $serie->update($request->all());
+        $this->seriesRepository->update($serie, $request->all());
 
         return redirect()->route('series.index')
             ->withMessage("Série '{$serie->name}' atualizada com sucesso!");
