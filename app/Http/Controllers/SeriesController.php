@@ -21,7 +21,7 @@ class SeriesController extends Controller
         $message = $request->session()->get('message');
 
         return view('series.index', compact('series'))
-            ->withMessage($message);
+            ->with('message', $message);
     }
 
     public function create()
