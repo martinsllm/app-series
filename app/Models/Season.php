@@ -21,4 +21,9 @@ class Season extends Model
     {
         return $this->belongsTo(Series::class);
     }
+
+    public function numberOfWatchedEpisodes()
+    {
+        return $this->episodes->filter(fn($episode) => $episode->watched)->count();
+    }
 }

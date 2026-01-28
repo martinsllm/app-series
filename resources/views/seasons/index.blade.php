@@ -7,7 +7,7 @@
                 </a>
                 <div class="flex gap-2">
                     <span class="inline-block px-3 py-1 bg-blue-500 text-white font-semibold rounded-full text-sm">
-                        {{ $season->episodes->count() }} episódios
+                        {{ $season->numberOfWatchedEpisodes() }} / {{ $season->episodes->count() }}
                     </span>
                 </div>
             </li>
