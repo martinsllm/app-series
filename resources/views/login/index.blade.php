@@ -27,5 +27,7 @@
         <button type="submit" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg">
             Entrar
         </button>
+        
+        <a href="{{ route('users.create') }}" class="ml-2 text-gray-600 hover:text-gray-800">Criar Conta</a>
     </form>
 </x-layout>
