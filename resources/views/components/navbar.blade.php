@@ -28,8 +28,16 @@
         </div>
       </div>
       <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-        <a href="{{ route('logout') }}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">Sair</a>
-      </div>
+        @auth
+            <a href="{{ route('logout') }}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">Sair</a>
+        @endauth
+
+        @guest
+            @if(request()->path() !== 'login')
+                <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">Entrar</a>
+            @endif
+        @endguest
+        </div>
     </div>
   </div>
 
