@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-abstract class Controller
+use Barryvdh\Debugbar\Controllers\BaseController;
+
+abstract class Controller extends BaseController
 {
     //
 }
