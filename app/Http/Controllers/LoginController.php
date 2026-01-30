@@ -20,4 +20,10 @@ class LoginController extends Controller
 
         return to_route('series.index');
     }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return to_route('login');
+    }
 }
