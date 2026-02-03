@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\Authenticator;
-use App\Mail\SeriesCreated;
+use App\Events\SeriesCreated as SeriesCreatedEvent;
 use App\Models\User;
 use App\Repositories\SeriesRepository;
 use DateTime;
@@ -38,20 +38,13 @@ class SeriesController extends Controller
     public function store(SeriesFormRequest $request)
     {
         $series = $this->seriesRepository->add($request->all());
-
-        $userList = User::all();
-
-        foreach ($userList as $index => $user) {
-            $email = new SeriesCreated(
-                $series->name, 
-                $series->id, 
-                $request->seasonsQty, 
-                $request->episodesForSeason
-            );
-
-            $when = now()->addSeconds($index * 2);
-            Mail::to($user)->later($when, $email);
-        }
+        
+        SeriesCreatedEvent::dispatch(
+            $series->name,
+            $series->id,
+            $request->seasonsQty,
+            $request->episodesForSeason
+        );
 
         return redirect()->route('series.index')
             ->withMessage("Série '{$series->name}' criada com sucesso!");
