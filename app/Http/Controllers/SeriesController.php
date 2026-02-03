@@ -6,6 +6,7 @@ use App\Http\Middleware\Authenticator;
 use App\Mail\SeriesCreated;
 use App\Models\User;
 use App\Repositories\SeriesRepository;
+use DateTime;
 use Illuminate\Http\Request;
 use App\Http\Requests\SeriesFormRequest;
 use Illuminate\Support\Facades\Mail;
@@ -40,14 +41,16 @@ class SeriesController extends Controller
 
         $userList = User::all();
 
-        foreach ($userList as $user) {
+        foreach ($userList as $index => $user) {
             $email = new SeriesCreated(
                 $series->name, 
                 $series->id, 
                 $request->seasonsQty, 
                 $request->episodesForSeason
             );
-            Mail::to($user)->queue($email);
+
+            $when = now()->addSeconds($index * 2);
+            Mail::to($user)->later($when, $email);
         }
 
         return redirect()->route('series.index')
