@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Middleware\Authenticator;
 use App\Events\SeriesCreated as SeriesCreatedEvent;
-use App\Models\User;
 use App\Repositories\SeriesRepository;
-use DateTime;
 use Illuminate\Http\Request;
 use App\Http\Requests\SeriesFormRequest;
-use Illuminate\Support\Facades\Mail;
 
 
 class SeriesController extends Controller
