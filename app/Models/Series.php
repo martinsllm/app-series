@@ -10,7 +10,7 @@ use App\Models\Season;
 class Series extends Model
 {
     use HasFactory;
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'cover'];
 
     public function seasons()
     {

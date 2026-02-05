@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Middleware\Authenticator;
 use App\Events\SeriesCreated as SeriesCreatedEvent;
 use App\Repositories\SeriesRepository;
+use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
 use App\Http\Requests\SeriesFormRequest;
 
@@ -34,7 +35,11 @@ class SeriesController extends Controller
 
     public function store(SeriesFormRequest $request)
     {
-        $series = $this->seriesRepository->add($request->all());
+        $data = $request->all();
+        $cover = $request->file('cover');
+        $data['cover'] = ImageUploadService::upload($cover);
+
+        $series = $this->seriesRepository->add($data);
         
         SeriesCreatedEvent::dispatch(
             $series->name,
@@ -68,7 +73,11 @@ class SeriesController extends Controller
     {
         $serie = $this->seriesRepository->find($id);
 
-        $this->seriesRepository->update($serie, $request->all());
+        $data = $request->all();
+        $cover = $request->file('cover');
+        $data['cover'] = ImageUploadService::upload($cover);
+
+        $this->seriesRepository->update($serie, $data);
 
         return redirect()->route('series.index')
             ->withMessage("Série '{$serie->name}' atualizada com sucesso!");

@@ -24,7 +24,8 @@ class SeriesFormRequest extends FormRequest
         return [
             'name' => 'required|string|min:3|max:128',
             'seasonsQty' => 'required|integer|min:1',
-            'episodesForSeason' => 'required|integer|min:1'
+            'episodesForSeason' => 'required|integer|min:1',
+            'cover' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }
