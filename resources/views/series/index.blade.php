@@ -9,9 +9,14 @@
         <ul class="space-y-2">
             @foreach($series as $serie)
                 <li class="p-4 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white flex justify-between items-center">
-                    @auth <a href="{{ route('seasons.index', $serie['id']) }}"> @endauth
-                        {{ $serie['name'] }}
-                    @auth </a> @endauth
+                    
+                    <div class="flex items-center">
+                        <img src="{{ asset('storage/' . $serie['cover']) }}" class="w-16 h-16 object-cover rounded mr-4">
+                        
+                        @auth <a class="ml-4 font-semibold hover:underline" href="{{ route('seasons.index', $serie['id']) }}"> @endauth
+                            {{ $serie['name'] }}
+                        @auth </a> @endauth
+                    </div>
 
                     @auth
                     <div class="flex gap-2">
