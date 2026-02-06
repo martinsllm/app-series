@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class ImageUploadService
+class ImageService
 {
     public static function upload($cover)
     {
@@ -10,5 +10,12 @@ class ImageUploadService
             return $cover->store('series_covers', 'public');
         }
         return null;
+    }
+
+    public static function delete($cover)
+    {
+        if ($cover) {
+            \Storage::disk('public')->delete($cover);
+        }
     }
 }

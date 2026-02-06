@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Middleware\Authenticator;
 use App\Events\SeriesCreated as SeriesCreatedEvent;
 use App\Repositories\SeriesRepository;
-use App\Services\ImageUploadService;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use App\Http\Requests\SeriesFormRequest;
 
@@ -37,7 +37,7 @@ class SeriesController extends Controller
     {
         $data = $request->all();
         $cover = $request->file('cover');
-        $data['cover'] = ImageUploadService::upload($cover);
+        $data['cover'] = ImageService::upload($cover);
 
         $series = $this->seriesRepository->add($data);
         
@@ -57,6 +57,9 @@ class SeriesController extends Controller
         $serie = $this->seriesRepository->find($request->series);
         if ($serie) {
             $serie->delete();
+            if($serie->cover){
+                ImageService::delete($serie->cover);
+            }
         }
 
         return redirect()->route('series.index')
@@ -75,7 +78,11 @@ class SeriesController extends Controller
 
         $data = $request->all();
         $cover = $request->file('cover');
-        $data['cover'] = ImageUploadService::upload($cover);
+
+        if($cover) {
+            $data['cover'] = ImageService::upload($cover);
+        }
+        
 
         $this->seriesRepository->update($serie, $data);
 
