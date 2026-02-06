@@ -1,6 +1,9 @@
 <x-app-layout>
     <x-card title="{{$seasons->first()->series->name}}">
-        <img src={{ asset('storage/' . $seasons->first()->series->cover) }} class="object-cover rounded mb-6">
+        @if($seasons->first()->series->cover)
+            <img src="{{ asset('storage/' . $seasons->first()->series->cover) }}" alt="{{ $seasons->first()->series->name }} Cover" class="w-32 h-32 object-cover rounded mb-4">
+        @endif
+
         <ul class="space-y-2">
             @foreach($seasons as $season)
                 <li class="p-4 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white flex justify-between items-center">

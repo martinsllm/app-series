@@ -11,7 +11,13 @@
                 <li class="p-4 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white flex justify-between items-center">
                     
                     <div class="flex items-center">
-                        <img src="{{ asset('storage/' . $serie['cover']) }}" class="w-16 h-16 object-cover rounded mr-4">
+                        @if($serie['cover'])
+                            <img src="{{ asset('storage/' . $serie['cover']) }}" alt="{{ $serie['name'] }} Cover" class="w-16 h-16 object-cover rounded mr-4">
+                        @else
+                            <div class="w-16 h-16 bg-gray-300 dark:bg-gray-600 rounded mr-4 flex items-center justify-center text-gray-500">
+                                No Image
+                            </div>
+                        @endif
                         
                         @auth <a class="ml-4 font-semibold hover:underline" href="{{ route('seasons.index', $serie['id']) }}"> @endauth
                             {{ $serie['name'] }}
