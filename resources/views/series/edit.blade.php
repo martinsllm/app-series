@@ -47,6 +47,10 @@
                             </label>
                             <input id="cover" name="cover" type="file" accept="image/*" class="sr-only">
                             <span id="cover-filename" class="ml-4 text-sm text-gray-600"></span>
+                            
+                            @if(!empty($serie->cover))
+                                <a href="{{ route('series.removeCover', $serie->id) }}" class="ml-4 text-red-600 hover:text-red-800 text-sm">Remover capa</a>
+                            @endif
                         </div>
 
                         @php
@@ -58,7 +62,7 @@
                             }
                         @endphp
 
-                        <img id="cover-preview" class="mt-4 max-h-48 rounded {{ empty($coverSrc) ? 'hidden' : '' }}" src="{{ $coverSrc }}" alt="Preview da capa">
+                        <a href="{{ $coverSrc }}" target="_blank"><img id="cover-preview" class="mt-4 max-h-48 rounded {{ empty($coverSrc) ? 'hidden' : '' }}" src="{{ $coverSrc }}" alt="Preview da capa"></a>
                     </div>
                 </div>
             </div>

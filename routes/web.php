@@ -22,6 +22,8 @@ Route::middleware('auth')->group(function () {
         return redirect()->route('series.index');
     });
 
+    Route::get('/series/{series}/remove-cover', [SeriesController::class, 'deleteCover'])->name('series.removeCover');
+
     Route::get('/series/{series}/seasons', [SeasonsController::class, 'index'])
         ->name('seasons.index');
 

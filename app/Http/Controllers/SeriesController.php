@@ -89,4 +89,17 @@ class SeriesController extends Controller
         return redirect()->route('series.index')
             ->withMessage("Série '{$serie->name}' atualizada com sucesso!");
     }
+
+    public function deleteCover(Request $request, $id)
+    {
+        $serie = $this->seriesRepository->find($id);
+        if ($serie && $serie->cover) {
+            ImageService::delete($serie->cover);
+            $serie->cover = null;
+            $serie->save();
+        }
+
+        return redirect()->route('series.index')
+            ->withMessage("Capa da série '{$serie->name}' removida com sucesso!");
+    }
 }
