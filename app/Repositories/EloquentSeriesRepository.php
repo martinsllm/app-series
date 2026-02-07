@@ -35,13 +35,12 @@ class EloquentSeriesRepository implements SeriesRepository
     {
         try {
             $series->update($data);
-
-            DB::table('seasons')->where('series_id', $series->id)->delete();
             DB::table('episodes')->whereIn('season_id', function ($query) use ($series) {
                 $query->select('id')
                       ->from('seasons')
                       ->where('series_id', $series->id);
             })->delete();
+            DB::table('seasons')->where('series_id', $series->id)->delete();
             
             $this->addSeasons($series, $data['seasonsQty'], $data['episodesForSeason']);
         } catch (\Exception $e) {
@@ -65,7 +64,8 @@ class EloquentSeriesRepository implements SeriesRepository
             Season::insert($seasons);
 
             $episodes = [];
-            foreach ($series->seasons as $season) {
+            $seasonModels = Season::where('series_id', $series->id)->get();
+            foreach ($seasonModels as $season) {
                 for ($i = 1; $i <= $episodesForSeason; $i++) {
                     $episodes[] = [
                         'season_id' => $season->id,
