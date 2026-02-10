@@ -16,4 +16,13 @@ class ApiSeriesController extends Controller
     {
         return $this->seriesRepository->all();
     }
+
+    public function show($id)
+    {
+        $series = $this->seriesRepository->find($id);
+        if (!$series) {
+            return response()->json(['message' => 'Série não encontrada'], 404);
+        }
+        return $series;
+    }
 }

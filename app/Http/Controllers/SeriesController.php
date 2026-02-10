@@ -69,7 +69,11 @@ class SeriesController extends Controller
     public function edit(Request $request, $id)
     {
         $serie = $this->seriesRepository->find($id);
-        return view('series.edit', compact('serie'));
+        if ($serie) {
+            return view('series.edit', compact('serie'));
+        }
+        return redirect()->route('series.index')
+            ->withMessage("Série não encontrada!");
     }
 
     public function update(SeriesFormRequest $request, $id)

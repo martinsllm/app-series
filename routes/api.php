@@ -9,3 +9,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('/series', [ApiSeriesController::class, 'index']);
+Route::get('/series/{id}', [ApiSeriesController::class, 'show']);

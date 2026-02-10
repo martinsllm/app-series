@@ -17,7 +17,7 @@ class EloquentSeriesRepository implements SeriesRepository
 
     public function find($id) : ?Series
     {
-        return Series::findOrFail($id);
+        return Series::find($id);
     }
 
     public function add(array $data) : Series

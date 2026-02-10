@@ -97,9 +97,9 @@ class SeriesRepositoryTest extends TestCase
     {
         $repository = $this->app->make(SeriesRepository::class);
 
-        $this->expectException(\Illuminate\Database\Eloquent\ModelNotFoundException::class);
+        $seriesById = $repository->find(999);
 
-        $repository->find(999);
+        $this->assertNull($seriesById);
     }
 
     
