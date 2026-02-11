@@ -7,7 +7,7 @@ use App\Events\SeriesCreated as SeriesCreatedEvent;
 use App\Repositories\SeriesRepository;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
-use App\Http\Requests\SeriesFormRequest;
+use App\Http\Requests\SeriesRequest;
 
 
 class SeriesController extends Controller
@@ -33,7 +33,7 @@ class SeriesController extends Controller
         return view('series.create');
     }
 
-    public function store(SeriesFormRequest $request)
+    public function store(SeriesRequest $request)
     {
         $data = $request->all();
         $cover = $request->file('cover');
@@ -73,10 +73,10 @@ class SeriesController extends Controller
             return view('series.edit', compact('serie'));
         }
         return redirect()->route('series.index')
-            ->withMessage("Série não encontrada!");
+            ->withErrors("Série não encontrada!");
     }
 
-    public function update(SeriesFormRequest $request, $id)
+    public function update(SeriesRequest $request, $id)
     {
         $serie = $this->seriesRepository->find($id);
 
