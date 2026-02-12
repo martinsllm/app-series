@@ -15,3 +15,5 @@ Route::apiResource('series', SeriesController::class)->names('api.series');
 Route::get('/series/{series}/seasons', [SeasonsController::class, 'index'])->name('api.seasons.index');
 
 Route::get('/series/{series}/episodes', [EpisodesController::class, 'index'])->name('api.episodes.index');
+
+Route::put('/episodes/{episode}/watched', [EpisodesController::class, 'watched'])->name('api.episodes.watched');

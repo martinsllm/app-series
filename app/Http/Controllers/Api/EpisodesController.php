@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Episode;
 use App\Repositories\SeriesRepository;
+use Illuminate\Http\Request;
 
 class EpisodesController extends Controller
 {
@@ -20,5 +22,12 @@ class EpisodesController extends Controller
         }
         
         return response()->json($series->episodes);
+    }
+
+    public function watched(Episode $episode, Request $request)
+    {
+        $episode->watched = $request->watched;
+        $episode->save();
+        return response()->json($episode);
     }
 }
