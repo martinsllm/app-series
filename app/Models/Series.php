@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use App\Models\Season;
 
 class Series extends Model
@@ -15,6 +14,11 @@ class Series extends Model
     public function seasons()
     {
         return $this->hasMany(Season::class, 'series_id');
+    }
+
+    public function episodes()
+    {
+        return $this->hasManyThrough(Episode::class, Season::class, 'series_id', 'season_id');
     }
 
     protected static function booted()
