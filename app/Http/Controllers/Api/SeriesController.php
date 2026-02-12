@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SeriesRequest;
 use App\Repositories\SeriesRepository;
 use App\Services\ImageService;
+use Illuminate\Http\Request;
 
 class SeriesController extends Controller
 {
@@ -14,9 +15,9 @@ class SeriesController extends Controller
         $this->seriesRepository = $seriesRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return $this->seriesRepository->all();
+        return $this->seriesRepository->all($request);
     }
 
     public function show($id)
