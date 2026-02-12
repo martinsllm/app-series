@@ -20,7 +20,7 @@ class SeriesController extends Controller
 
     public function index(Request $request)
     {
-        $series = $this->seriesRepository->all();
+        $series = $this->seriesRepository->all($request);
 
         $message = $request->session()->get('message');
 

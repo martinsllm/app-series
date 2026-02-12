@@ -10,13 +10,13 @@ use Illuminate\Support\Facades\DB;
 class EloquentSeriesRepository implements SeriesRepository
 {
 
-    public function all($request) : array
+    public function all($request)
     {  
         $query = Series::query();
         if ($request->has('name')) {
             $query->where('name', 'like', "%{$request->name}%");
         }
-        return $query->get()->toArray();
+        return $query->paginate(3);
     }
 
     public function find($id) : ?Series

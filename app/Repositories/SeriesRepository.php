@@ -6,7 +6,7 @@ use App\Models\Series;
 
 interface SeriesRepository
 {
-    public function all($request): array;
+    public function all($request);
 
     public function find($id): ?Series;
 
