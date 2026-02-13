@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SeriesRequest;
 use App\Repositories\SeriesRepository;
 use App\Services\ImageService;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
 
 class SeriesController extends Controller
@@ -42,8 +43,12 @@ class SeriesController extends Controller
         return response()->json($series, 201);
     }
 
-    public function update(SeriesRequest $request, $id)
+    public function update(SeriesRequest $request, $id, Authenticatable $user)
     {
+        if(!$user->can('edit series')){
+            return response()->json(['message' => 'Acesso negado'], 403);
+        }
+
         $series = $this->seriesRepository->find($id);
         if (!$series) {
             return response()->json(['message' => 'Série não encontrada'], 404);
@@ -57,10 +62,15 @@ class SeriesController extends Controller
 
         $this->seriesRepository->update($series, $data);
         return response()->json(['message' => 'Série atualizada com sucesso']);
+        
     }
 
-    public function destroy($id)
+    public function destroy($id, Authenticatable $user)
     {
+        if(!$user->can('remove series')){
+            return response()->json(['message' => 'Acesso negado'], 403);
+        }
+
         $series = $this->seriesRepository->find($id);
 
         if ($series) {
