@@ -1,59 +1,101 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🎬 Laravel Series Manager
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplicação Fullstack desenvolvida com Laravel para gerenciamento de séries que o usuário deseja assistir, permitindo acompanhar temporadas, episódios e progresso de visualização.
 
-## About Laravel
+O projeto inclui interface web com Blade e uma API REST estruturada, ambas protegidas por autenticação e controle de acesso baseado em papéis (RBAC).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+O sistema foi desenvolvido com foco em boas práticas, separação de responsabilidades e organização em camadas.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🚀 Tecnologias Utilizadas
 
-## Learning Laravel
+- PHP 8+
+- Laravel
+- SQLite (ambiente de desenvolvimento)
+- Blade
+- API REST
+- spatie/laravel-permission
+- Composer
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🖥 Estrutura da Aplicação
 
-## Laravel Sponsors
+O projeto é dividido em duas camadas principais:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 🌐 Aplicação Web (Blade)
 
-### Premium Partners
+Interface para interação dos usuários com o sistema.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 🔌 API REST
 
-## Contributing
+Camada de API para manipulação dos recursos da aplicação, retornando dados em formato JSON e protegida por autenticação e permissões.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## 👤 Funcionalidades
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 🔐 Usuário Autenticado pode:
 
-## Security Vulnerabilities
+- Cadastrar novas séries
+- Informar número de temporadas
+- Definir quantidade de episódios por temporada
+- Visualizar a lista de séries cadastradas
+- Editar informações de uma série
+- Remover séries (conforme permissões)
+- Marcar episódios como **assistidos**
+- Acompanhar o progresso da série com base nos episódios visualizados
+- Utilizar filtros para busca
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## 🔐 API REST
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+A API permite:
+
+- Autenticação de usuários
+- CRUD completo de séries
+- Gerenciamento de temporadas e episódios
+- Marcação de episódios como assistidos
+- Controle de acesso baseado em roles e permissions
+- Proteção de rotas via middleware
+
+---
+
+## 🧠 Regras de Negócio Implementadas
+
+- Cada série possui múltiplas temporadas
+- Cada temporada possui múltiplos episódios
+- Episódios podem ser marcados individualmente como assistidos
+- Ações de edição e exclusão respeitam permissões definidas via RBAC
+- Envio de e-mails executado de forma assíncrona utilizando Events e Jobs
+- Separação clara entre regra de negócio e camada de controle
+
+---
+
+## 🏗 Arquitetura e Organização
+
+O projeto foi estruturado utilizando:
+
+- Padrão MVC
+- Service Layer para centralização da regra de negócio
+- Repository Pattern para abstração do acesso a dados
+- Validações customizadas
+- Events e Jobs para desacoplamento e processamento assíncrono
+- Separação de responsabilidades entre camadas
+
+O objetivo foi desenvolver uma aplicação próxima de um cenário real de mercado, indo além de um CRUD simples.
+
+---
+
+## ⚙️ Instalação
+
+```bash
+git clone https://github.com/seu-usuario/laravel-series-app.git
+cd laravel-series-app
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan serve

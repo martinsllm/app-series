@@ -30,8 +30,12 @@ class SeriesController extends Controller
         return $series;
     }
 
-    public function store(SeriesRequest $request)
+    public function store(SeriesRequest $request, Authenticatable $user)
     {
+        if(!$user->can('add series')){
+            return response()->json(['message' => 'Acesso negado'], 403);
+        }
+
         $series = $this->seriesRepository->add($request->all());
 
         $cover = $request->file('cover');
